@@ -1,6 +1,6 @@
 # What we are making...
 # Bank application
-# User can create an account.
+# User can create an account. Done
 # User can debit money in the account.
 # User can credit money in the account.
 #User can delete their account.

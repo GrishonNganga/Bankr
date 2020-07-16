@@ -6,10 +6,9 @@ class TestUser(unittest.TestCase):
 
     def setUp(self):
         self.a_new_user = User('Grishon', 'Nganga', '20/20/1920', 31390865)
-        self.user_account = Account(self.a_new_user.id, 2000)
 
     def tearDown(self):
-        pass
+        self.a_new_user = None
 
     def test_user(self):
         a_new_user = User('Grishon', 'Nganga', '20/20/1920', 31390865)
@@ -32,6 +31,35 @@ class TestUser(unittest.TestCase):
         self.a_new_user.accounts
         self.assertEqual(len(self.a_new_user.accounts), 1)
 
+    def test_user_debit_account(self):
+        self.a_new_user.create_account(2000)
+        account = self.a_new_user.accounts[0]    
+
+        account.debit(200)        
+        
+        self.assertEqual(self.a_new_user.accounts[0].amount, 2200)
+
+    def test_user_credit_account(self):
+        self.a_new_user.create_account(2000)
+
+        self.a_new_user.accounts
+        self.assertEqual(len(self.a_new_user.accounts), 1)
+
+    def test_user_debit_account(self):
+        self.a_new_user.create_account(2000)
+        account = self.a_new_user.accounts[0]    
+
+        account.credit(200)        
+        
+        self.assertEqual(self.a_new_user.accounts[0].amount, 1800)
+
+
+    def test_delete_account(self):
+        self.a_new_user.create_account(100)
+        
+        self.a_new_user.delete_account(self.a_new_user.accounts[0])
+
+        self.assertEqual(len(self.a_new_user.accounts), 0)
 
 if __name__ == '__main__':
     unittest.main()

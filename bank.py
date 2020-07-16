@@ -12,8 +12,17 @@ class User():
 
     def create_account(self, amount):
         account_created = Account(self.id, amount)
-        self.accounts.append(account_created.account_no) 
+        self.accounts.append(account_created)
 
+        return account_created
+
+    def get_account(self):
+        return self.accounts[0]
+
+    def delete_account(self, account):
+        for acc in self.accounts:
+            if acc.account_no == account.account_no:
+                self.accounts.remove(acc)
     
 
 class Account():
@@ -21,3 +30,9 @@ class Account():
         self.user_id = user_id
         self.amount = amount
         self.account_no = uuid.uuid1()
+
+    def debit(self, amount):
+        self.amount += amount
+
+    def credit(self, amount):
+        self.amount -= amount
